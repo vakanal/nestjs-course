@@ -9,28 +9,28 @@ export class ProductsService {
   constructor(@InjectModel('Product') private productModel: Model<Product>) {}
 
   async getProducts(): Promise<Product[]> {
-    return this.productModel.find().exec();
+    return await this.productModel.find().exec();
   }
 
   async getProduct(id: string): Promise<Product> {
-    return this.productModel.findById(id).exec();
+    return await this.productModel.findById(id).exec();
   }
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const createdProduct = new this.productModel(createProductDto);
-    return createdProduct.save();
+    return await createdProduct.save();
   }
 
   async updateProduct(
     id: string,
     createProductDto: CreateProductDto,
   ): Promise<Product> {
-    return this.productModel
+    return await this.productModel
       .findByIdAndUpdate(id, createProductDto, { new: true })
       .exec();
   }
 
   async deleteProduct(id: string): Promise<Product> {
-    return this.productModel.findByIdAndDelete(id).exec();
+    return await this.productModel.findByIdAndDelete(id).exec();
   }
 }
